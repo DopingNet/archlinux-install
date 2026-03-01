@@ -12,6 +12,7 @@ cfdisk -z /dev/sda
 ```
 
 UEFI
+-
 
 список разделов:
 
