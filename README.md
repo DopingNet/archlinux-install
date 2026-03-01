@@ -102,45 +102,101 @@ nano /etc/vconsole.conf
 FONT=cyr-sun16
 KEYMAP=us
 ```
-
+сгенерируем initramfs заново
+```
 mkinitcpio -P
+```
 
-hwclock --systohc # записывает системное время в аппаратные часы
+синхронизируем время
+```
+hwclock --systohc
+```
 
-echo LANG=ru_RU.UTF-8 > /etc/locale.conf && export LANG=ru_RU.UTF-8 # задаёт системную локаль
+установим локаль системы
+```
+echo LANG=ru_RU.UTF-8 > /etc/locale.conf && export LANG=ru_RU.UTF-8
+```
 
+зададим имя хоста
+```
 echo arch-vbox > /etc/hostname # задаёт имя хоста
-
-nano /etc/hosts # открывает файл сопоставления имён и IP-адресов в редакторе
+```
+отредактируем hosts
+```
+nano /etc/hosts
+```
+```
 127.0.0.1      localhost
 ::1            localhost
 127.0.1.1      arch-vbox
-
+```
+зададим пароль root в новой системе
+```
 passwd
+```
+
+ЗАГРУЗЧИК
 
 UEFI
-----
-pacman -S grub efibootmgr os-prober mtools # устанавливает GRUB и сопутствующие утилиты для UEFI
-mkdir /boot/efi && mount /dev/sda1 /boot/efi # создаёт и монтирует точку монтирования EFI
-grub-install --target=x86_64-efi --bootloader-id=grub_uefi # устанавливает GRUB в EFI-раздел
-grub-mkconfig -o /boot/grub/grub.cfg # генерирует конфигурационный файл GRUB
+```
+pacman -S grub efibootmgr os-prober mtools
+```
+```
+mkdir /boot/efi && mount /dev/sda1 /boot/efi
+```
+```
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi
+```
+```
+grub-mkconfig -o /boot/grub/grub.cfg
+```
 
 BIOS
-----
-pacman -S grub os-prober mtools # устанавливает GRUB и сопутствующие утилиты для UEFI
-grub-install /dev/sda # устанавливает GRUB в /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg # генерирует конфигурационный файл GRUB
+```
+pacman -S grub os-prober mtools
+```
+```
+grub-install /dev/sda
+```
+```
+grub-mkconfig -o /boot/grub/grub.cfg
+```
 
+добавим пользователя test в группу wheel
+```
 useradd -m -G wheel test
+```
 
+зададим для него пароль
+```
 passwd test
+```
 
+в файле sudoers расскомментируем %wheel (убрать #)
+```
 nano /etc/sudoers
+```
 
-%wheel раскомментировать
-
+создадим папку пользователя
+```
 mkdir /home/test
+```
+зададим права для нее
+```
 chown test /home/test
+```
+Базовая установка завершена
+
+выйти из chroot
+```
+exit
+```
+
+отмонтировать корневой раздел
+```
+umount -R /mnt
+```
+
 
 GNOME
 -----
