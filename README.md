@@ -12,7 +12,6 @@ cfdisk -z /dev/sda
 ```
 
 UEFI
-----
 список разделов:
 
 EFI 1G
