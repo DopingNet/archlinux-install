@@ -43,8 +43,11 @@ mkfs.ext4 /dev/sda3
 ```bash
 nano /etc/pacman.conf
 ```
+
 #[multilib]
+
 #Include = /etc/pacman.d/mirrorlist
+
 убрать комментарий #
 
 обновить список пакетов
