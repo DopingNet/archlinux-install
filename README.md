@@ -74,20 +74,34 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ```
 
+включаем службу NetworkManager
+```
 systemctl enable NetworkManager
-
-ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime # устанавливает часовой пояс через символическую ссылку
-
-nano /etc/locale.gen # открывает список доступных локалей в редакторе
-
+```
+задаем часовой пояс
+```
+ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+```
+включаем локали
+```
+nano /etc/locale.gen
+```
+```
 en_US.UTF-8 UTF-8
 ru_RU.UTF-8 UTF-8
-
-locale-gen # генерирует локали на основе /etc/locale.gen
-
+```
+генерируем локали
+```
+locale-gen
+```
+включаем русский шрифт в консоли
+```
 nano /etc/vconsole.conf
+```
+```
 FONT=cyr-sun16
 KEYMAP=us
+```
 
 mkinitcpio -P
 
