@@ -17,6 +17,7 @@ UEFI
  список разделов:
  
 > sda1 - EFI 1G
+> 
 > sda2 - SWAP 8G
 > 
 > sda3 - ROOT все остальное
