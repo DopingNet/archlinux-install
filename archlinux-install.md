@@ -15,9 +15,9 @@ UEFI
 -
 
 > список разделов:
-> /dev/sda1 - EFI 1G
-> /dev/sda2 - SWAP 8G
-> /dev/sda3 - ROOT все остальное
+> sda1 - EFI 1G
+> sda2 - SWAP 8G
+> sda3 - ROOT все остальное
 
 создать файловые системы
 
