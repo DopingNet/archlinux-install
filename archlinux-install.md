@@ -85,7 +85,7 @@ pacman -Syy
 -
 монтируем корневой раздел
 ```
-mount /dev/sda2 /mnt
+mount /dev/sda3 /mnt
 ```
 установить базовую систему
 ```
