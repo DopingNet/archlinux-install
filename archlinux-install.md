@@ -84,9 +84,17 @@ pacman -Syy
 МОНТИРОВАНИЕ КОРНЕВОГО РАЗДЕЛА И УСТАНОВКА БАЗОВОЙ СИСТЕМЫ
 -
 монтируем корневой раздел
+
+UEFI
 ```
 mount /dev/sda3 /mnt
 ```
+
+BIOS
+```
+mount /dev/sda2 /mnt
+```
+
 установить базовую систему
 ```
 pacstrap -K /mnt base linux linux-firmware sudo nano networkmanager openssh mc
