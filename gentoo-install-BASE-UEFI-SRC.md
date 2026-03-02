@@ -217,3 +217,32 @@ eselect locale set 5
 ```
 env-update && source /etc/profile && export PS1="(chroot) ${PS1}"
 ```
+
+Установил dbus
+```
+emerge sys-apps/dbus
+```
+
+Установил прошивки
+```
+emerge --ask sys-kernel/linux-firmware
+```
+```
+emerge --ask sys-firmware/sof-firmware
+```
+
+Установил микрокод
+```
+emerge sys-firmware/intel-microcode
+```
+
+Редактирую /etc/portage/package.use/installkernel
+```
+nano /etc/portage/package.use/installkernel
+```
+
+> sys-kernel/installkernel grub dracut
+
+Ставлю ядро
+```
+emerge --ask sys-kernel/installkernel
