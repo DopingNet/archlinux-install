@@ -246,3 +246,76 @@ nano /etc/portage/package.use/installkernel
 Ставлю ядро
 ```
 emerge --ask sys-kernel/installkernel
+emerge --ask sys-kernel/gentoo-kernel-bin
+emerge --depclean
+emerge --ask sys-kernel/gentoo-sources
+```
+
+nano /etc/fstab
+
+BIOS
+-
+/dev/sda1   /boot        xfs    defaults    0 2
+/dev/sda2   none         swap    sw                   0 0
+/dev/sda3   /            xfs    defaults,noatime              0 1
+
+UEFI
+-
+/dev/sda1   /efi        vfat    umask=0077,tz=UTC     0 2
+/dev/sda2   none         swap    sw                   0 0
+/dev/sda3   /            xfs    defaults,noatime              0 1
+
+Имя компьютера
+echo tux > /etc/hostname
+
+
+emerge --ask net-misc/dhcpcd
+
+openRC
+-
+rc-update add dhcpcd default
+rc-service dhcpcd start
+
+systemD
+-
+systemctl enable dhcpcd
+
+nano /etc/hosts
+# Это обязательные настройки для текущей системы
+127.0.0.1     tux.homenetwork tux localhost
+::1           tux.homenetwork tux localhost
+
+passwd
+
+emerge --ask app-admin/sysklogd
+rc-update add sysklogd default
+
+emerge --ask sys-process/cronie
+rc-update add cronie default
+
+emerge --ask app-shells/bash-completion
+
+emerge --ask sys-block/io-scheduler-udev-rules
+
+emerge --ask sys-fs/xfsprogs sys-fs/e2fsprogs sys-fs/dosfstools 	sys-fs/btrfs-progs 	sys-fs/f2fs-tools 	sys-fs/ntfs3g sys-fs/zfs
+
+echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
+emerge --ask sys-boot/grub
+
+
+BIOS
+-
+grub-install /dev/sda
+
+UEFI
+-
+grub-install --efi-directory=/efi
+
+grub-mkconfig -o /efi/EFI/Gentoo/grub.cfg
+env-update
+exit
+
+cd
+umount -l /mnt/gentoo/dev{/shm,/pts,}
+umount -R /mnt/gentoo
+reboot
